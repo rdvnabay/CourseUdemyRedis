@@ -16,29 +16,23 @@ namespace InMemoryApp.Web.Controllers
         }
         public IActionResult Index()
         {
-            //1.Yol
-            if (String.IsNullOrEmpty(_memoryCache.Get<string>("zaman")))
-            {
-                _memoryCache.Set<string>("zaman", DateTime.Now.ToString());
-            }
 
-            //2.Yol
+            //Absolute Expiration
+            //Sliding  Expiration
             if(!_memoryCache.TryGetValue("zaman",out string zamanCache)){
-                _memoryCache.Set<string>("zaman", DateTime.Now.ToString());
+                MemoryCacheEntryOptions options = new MemoryCacheEntryOptions();
+                options.AbsoluteExpiration = DateTime.Now.AddMinutes(1);
+                options.SlidingExpiration = TimeSpan.FromSeconds(10);
+                _memoryCache.Set<string>("zaman", DateTime.Now.ToString(),options);
             }
-
-            //3.Yol
-            _memoryCache.GetOrCreate<string>("zaman",entry =>
-            {
-                return DateTime.Now.ToString();
-            });
   
             return View();
         }
 
         public IActionResult Show()
         {
-            ViewBag.Zaman = _memoryCache.Get<string>("zaman");
+            _memoryCache.TryGetValue("zaman", out string zamanCache);
+            ViewBag.Zaman = zamanCache;
             return View();
         }
     }
