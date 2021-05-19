@@ -16,7 +16,23 @@ namespace InMemoryApp.Web.Controllers
         }
         public IActionResult Index()
         {
-            _memoryCache.Set<string>("zaman", DateTime.Now.ToString());
+            //1.Yol
+            if (String.IsNullOrEmpty(_memoryCache.Get<string>("zaman")))
+            {
+                _memoryCache.Set<string>("zaman", DateTime.Now.ToString());
+            }
+
+            //2.Yol
+            if(!_memoryCache.TryGetValue("zaman",out string zamanCache)){
+                _memoryCache.Set<string>("zaman", DateTime.Now.ToString());
+            }
+
+            //3.Yol
+            _memoryCache.GetOrCreate<string>("zaman",entry =>
+            {
+                return DateTime.Now.ToString();
+            });
+  
             return View();
         }
 
