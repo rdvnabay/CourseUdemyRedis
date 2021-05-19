@@ -1,9 +1,13 @@
-﻿
+﻿@using InMemoryApp.Web.Models
 @{
     ViewData["Title"] = "Show";
+    Product p = ViewBag.Product as Product;
 }
 
 <h1>Show</h1>
 @ViewBag.Zaman
 @ViewBag.Callback
-
+</hr>
+@p.Id
+@p.Name
+@p.Price
