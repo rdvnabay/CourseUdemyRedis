@@ -53,6 +53,7 @@ namespace IDistributedCacheRedisApp.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapDefaultControllerRoute();
             });
         }
     }
