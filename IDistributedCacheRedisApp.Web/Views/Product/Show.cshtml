@@ -1,8 +1,19 @@
-﻿
+﻿@using IDistributedCacheRedisApp.Web.Models
 @{
     ViewData["Title"] = "Show";
+    Product product = ViewBag.Product as Product;
+    Product product2 = ViewBag.Product2 as Product;
 }
 
-<h1>Show</h1>
-@ViewBag.Name
+<h1>Json</h1>
+@product.Id
+@product.Name
+@product.Price
+
+
+<h1>Binary</h1>
+@product2.Id
+@product2.Name
+@product2.Price
+
 
