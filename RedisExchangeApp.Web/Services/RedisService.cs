@@ -11,7 +11,7 @@ namespace RedisExchangeApp.Web.Services
     {
         private readonly string _redisHost;
         private readonly string _redisPort;
-        private IDatabase database;
+        public IDatabase db;
         private ConnectionMultiplexer _redis;
         public RedisService(IConfiguration configuration)
         {
